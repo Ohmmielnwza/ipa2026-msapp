@@ -1,0 +1,7 @@
+services:
+  web:
+    environment:
+      ROUTER_MODE: demo
+  worker:
+    environment:
+      ROUTER_MODE: demo

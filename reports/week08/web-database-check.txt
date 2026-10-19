@@ -1,0 +1,12 @@
+LIVE WEB AND DATABASE CHECK
+Checked: 2026-10-14T15:29:29.180791+00:00
+Router source: DEMO; Web/RabbitMQ/Worker/MongoDB run in real containers
+Homepage: 200
+Invalid ID: HTTP 400 — PASS
+New demo snapshots during last 5 minutes: 15
+10.0.29.101 : HTTP 200 / latest 3 snapshots / 12 interface rows / DEMO label — PASS
+10.0.29.102 : HTTP 200 / latest 3 snapshots / 12 interface rows / DEMO label — PASS
+10.0.29.103 : HTTP 200 / latest 3 snapshots / 12 interface rows / DEMO label — PASS
+10.0.29.104 : HTTP 200 / latest 3 snapshots / 12 interface rows / DEMO label — PASS
+10.0.29.105 : HTTP 200 / latest 3 snapshots / 12 interface rows / DEMO label — PASS
+All live checks passed.

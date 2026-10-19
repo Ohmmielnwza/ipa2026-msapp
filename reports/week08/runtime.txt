@@ -1,0 +1,45 @@
+Week08 verification — run on Ubuntu VM
+2026-10-14T22:29:26+07:00
+Router source: DEMO (no physical/SSH routers)
+
+$ docker compose ps
+week7-mongo-1	running	healthy
+week7-rabbitmq-1	running	healthy
+week7-scheduler-1	running	
+week7-web-1	running	
+week7-worker-1	running	
+week7-worker-2	running	
+week7-worker-3	running	
+
+$ rabbitmqctl list_queues name consumers messages_ready messages_unacknowledged
+Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+name	consumers	messages_ready	messages_unacknowledged
+router_jobs	3	0	0
+
+$ docker compose logs worker scheduler (filtered)
+worker-1  | DEMO: simulated router CLI; no SSH connection
+worker-1  | Received job for router 10.0.29.103
+worker-1  | Stored interface status for 10.0.29.103
+worker-1  | Received job for router 10.0.29.103
+worker-1  | Stored interface status for 10.0.29.103
+worker-2  | Stored interface status for 10.0.29.101
+worker-2  | Received job for router 10.0.29.105
+worker-2  | Stored interface status for 10.0.29.105
+worker-2  | Received job for router 10.0.29.101
+worker-2  | Stored interface status for 10.0.29.101
+worker-2  | Received job for router 10.0.29.104
+worker-2  | Stored interface status for 10.0.29.104
+scheduler-1  | [2026-10-14T22:26:55.588+07:00] run #0
+scheduler-1  | Published 5 router jobs
+scheduler-1  | [2026-10-14T22:27:55.591+07:00] run #1
+scheduler-1  | Published 5 router jobs
+scheduler-1  | [2026-10-14T22:28:55.589+07:00] run #2
+scheduler-1  | Published 5 router jobs
+worker-3     | Stored interface status for 10.0.29.102
+worker-3     | Received job for router 10.0.29.104
+worker-3     | Stored interface status for 10.0.29.104
+worker-3     | Received job for router 10.0.29.102
+worker-3     | Stored interface status for 10.0.29.102
+worker-3     | Received job for router 10.0.29.105
+worker-3     | Stored interface status for 10.0.29.105

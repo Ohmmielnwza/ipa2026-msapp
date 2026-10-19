@@ -1,0 +1,55 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install lint/format tools
+        run: pip install flake8 black
+
+      - name: Run flake8 (Lint)
+        run: flake8 web scheduler worker
+
+      - name: Check code format with black
+        run: black --check web scheduler worker
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push web image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ipa2026-web:latest
+
+      - name: Build and push scheduler image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./scheduler
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ipa2026-scheduler:latest
+
+      - name: Build and push worker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./worker
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ipa2026-worker:latest

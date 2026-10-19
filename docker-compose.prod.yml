@@ -1,0 +1,15 @@
+services:
+  web:
+    image: ${DOCKERHUB_USERNAME}/ipa2026-web:latest
+    build: !reset null
+    pull_policy: always
+
+  scheduler:
+    image: ${DOCKERHUB_USERNAME}/ipa2026-scheduler:latest
+    build: !reset null
+    pull_policy: always
+
+  worker:
+    image: ${DOCKERHUB_USERNAME}/ipa2026-worker:latest
+    build: !reset null
+    pull_policy: always

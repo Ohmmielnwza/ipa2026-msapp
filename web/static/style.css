@@ -1,0 +1,8 @@
+body {background: lightsteelblue;}
+table { border-collapse: collapse; }
+th, td { padding: 4px 12px 4px 0; text-align: left; }
+section { margin: 22px 0; }
+.error { color: #8b0000; }
+.interface-history { border: 1px solid gray; border-collapse: separate; border-spacing: 2px; }
+.interface-history th, .interface-history td { border: 1px solid gray; padding: 1px; }
+.interface-history th { text-align: center; }

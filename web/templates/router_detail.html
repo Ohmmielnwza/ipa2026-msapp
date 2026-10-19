@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Router {{ router.ip or router.ip_address }} — Interface Status</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main>
+    <p><a href="{{ url_for('index') }}">Back to routers</a></p>
+    <h1>Router: {{ router.ip or router.ip_address }}</h1>
+    {% if snapshots %}
+      <p>Latest three snapshots, newest first. Timestamps are UTC.
+      {% if snapshots | selectattr('source', 'equalto', 'demo') | list %}
+      <strong>Demo data</strong> — simulated router interfaces.
+      {% endif %}</p>
+        <table class="interface-history">
+          <thead><tr><th>Timestamp</th><th>Interface</th><th>IP Address</th><th>Status</th><th>Protocol</th></tr></thead>
+          <tbody>
+          {% for snapshot in snapshots %}
+          {% for interface in snapshot.interfaces %}
+            <tr>
+              <td>{{ snapshot.timestamp.strftime('%Y-%m-%d %H:%M:%S.%f') if snapshot.timestamp else 'Timestamp unavailable' }}</td>
+              <td>{{ interface.interface }}</td>
+              <td>{{ interface.ip_address }}</td>
+              <td>{{ interface.status }}</td>
+              <td>{{ interface.proto }}</td>
+            </tr>
+          {% else %}
+            <tr><td>{{ snapshot.timestamp }}</td><td colspan="4">No interface entries in this snapshot.</td></tr>
+          {% endfor %}
+          {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+    <p>No interface snapshots yet. Wait for the scheduler and worker to collect a result, then refresh this page.</p>
+    {% endif %}
+  </main>
+</body>
+</html>
