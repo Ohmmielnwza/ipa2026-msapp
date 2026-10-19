@@ -13,3 +13,11 @@ services:
     image: ${DOCKERHUB_USERNAME}/ipa2026-worker:latest
     build: !reset null
     pull_policy: always
+
+  mongo:
+    volumes:
+      - mongo-data-prod:/data/db
+
+volumes:
+  mongo-data-prod:
+  mongo-data: !reset null
